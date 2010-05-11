@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery UI Notification Widget by Eric Hynds</title>
+<link type="text/css" rel="stylesheet" href="http://www.erichynds.com/examples/style.css" />
+<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/redmond/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="ui.notify.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js" type="text/javascript"></script>
+<script src="http://jqueryui.com/themeroller/themeswitchertool/" type="text/javascript"></script> 
+<script src="src/jquery.notify.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+
+	// create instance
+	var n = $("#container").notify({
+		beforeopen: function(){
+			console.log("default beforeopen event fired");
+		},
+		close: function(){
+			console.log("default close event");
+		}
+	});
+	
+	// create a test notification
+	n.notify("create", {
+		title: 'Test Notification',
+		text: 'The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.'
+	});
+	
+	// create another, and save the obj into the var instance.
+	var instance = n.notify("create", {
+		title: 'Second Test Notification',
+		text: 'Another quick brown fox jumped over the old and busted lazy dog.'
+	},{ 
+		sticky: true,
+		close: function(){
+			console.log("custom close fired");
+		}
+	});
+	
+	// since the above instance is "sticky", it can be manually closed by calling n.close();
+});
+</script>
+
+</head>
+<body>
+
+<!--- create template --->
+<div id="container">
+	<div class="ui-notify-message">
+		<h1>#{title}</h1>
+		<p>#{text}</p>
+	</div>
+</div>
+
+
+</body>
+</html>
