@@ -56,6 +56,7 @@ $.extend($.ui.notify.instance.prototype, {
 			} else {
 				closelink.bind("click", function(){
 					self.close();
+					return false;
 				});
 			}
 		}
