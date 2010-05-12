@@ -17,17 +17,7 @@ $(function(){
 	// the defaults will apply to any notification created within this
 	// container, but can be overwritten on notification-by-notification
 	// basis.
-	$container = $("#container").notify({
-		beforeopen: function(){
-			console.log("default beforeopen event fired");
-		},
-		open: function(){
-			console.log("default open event fired");
-		},
-		close: function(){
-			console.log("default close event");
-		}
-	});
+	$container = $("#container").notify();
 	
 	// create a test notification
 	$container.notify("create", {
@@ -40,10 +30,7 @@ $(function(){
 		title: 'Sticky Notification',
 		text: 'This is an example of a "sticky" notification.  The only way to close me is to click on the X above.'
 	},{ 
-		sticky: true,
-		close: function(){
-			console.log("custom close fired");
-		}
+		sticky: true
 	});
 	
 	// since the above instance is "sticky", it can be manually closed by calling instance.close();
@@ -53,11 +40,11 @@ $(function(){
 </head>
 <body>
 
-<div id="bar">
-	<h1><a href="http://www.erichynds.com">eric<span>hynds</span></a></h1>
-</div>
-
 <div id="content">
+
+	<h1>jQuery UI Notify Widget</h1>
+	<p>This is a growl/ubuntu-like notification system built on top of jQuery UI.</p>
+	<p>Download &amp; docs @ <a href="http://github.com/ehynds/jquery-notify">http://github.com/ehynds/jquery-notify</a>.</p>
 
 	<!--- container to hold notifications --->
 	<div id="container">

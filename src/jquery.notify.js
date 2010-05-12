@@ -33,7 +33,7 @@ $.extend($.ui.notify.instance.prototype, {
 		var self = this,
 		
 			// build instance specific options
-			opts = (this.options = $.extend({}, this.widget.options, opts)),
+			options = (this.options = $.extend({}, this.widget.options, opts)),
 			
 			// build html template
 			html = this.widget.template.replace(/#\{(.*?)\}/g, function($1, $2){
@@ -53,7 +53,7 @@ $.extend($.ui.notify.instance.prototype, {
 		
 		// show close link?
 		if(closelink.length){
-			if(!opts.sticky){
+			if(!options.sticky){
 				closelink.remove();
 			} else {
 				closelink.bind("click", function(){
@@ -71,10 +71,10 @@ $.extend($.ui.notify.instance.prototype, {
 		}
 		
 		// decide when to close it
-		if(!opts.sticky){
+		if(!options.sticky){
 			window.setTimeout(function(){
 				self.close();
-			}, opts.lifespan);
+			}, options.lifespan);
 		}
 		
 		return this;
