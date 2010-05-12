@@ -1,8 +1,6 @@
 (function($){
 
 $.widget("ui.notify", {
-	
-	// default options
 	options: {
 		speed: 500,
 		lifespan: 5000,

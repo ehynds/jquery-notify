@@ -12,6 +12,7 @@ Create Growl/Ubuntu-like notifications.
 - Show completely different notifications in different containers
 - Ability to customize options on a notification-by-notification basis
 - Ability to programatically call `open` and `close` methods
+- Passes JSLint
 
 ## Usage
 
