@@ -17,7 +17,8 @@ Create Growl/Ubuntu-like notifications.
 ## Usage
 
 First, create a container to hold notifications, and a template from which all notifications will be constructed from.  With this,
-you can have multiple containers on a page holding different styles of notifications.
+you can have multiple containers on a page holding different styles of notifications.  Once the widget is initated on the container, the 
+template is saved and removed from the DOM.
 
 	<div id="container">
 	
