@@ -11,7 +11,7 @@ $.widget("ui.notify", {
 		this.element.empty().addClass("ui-notify");
 	},
 	create: function(msg, opts){
-		return new $.ui.notify.instance(this)._create( msg, opts );
+		return new $.ui.notify.instance(this)._create(msg, $.extend({}, this.options, opts));
 	},
 	_setOption: function(key, value){
 		this.options[key] = value;
@@ -27,11 +27,10 @@ $.extend($.ui.notify, {
 
 // instance methods
 $.extend($.ui.notify.instance.prototype, {
-	_create: function(params, opts){
-		var self = this,
+	_create: function(params, options){
+		this.options = options;
 		
-			// build instance specific options
-			options = (this.options = $.extend({}, this.widget.options, opts)),
+		var self = this,
 			
 			// build html template
 			html = this.widget.template.replace(/#\{(.*?)\}/g, function($1, $2){
@@ -64,11 +63,6 @@ $.extend($.ui.notify.instance.prototype, {
 		// open plz
 		this.open();
 		
-		// fire open callback
-		if(this._trigger("open") === false){
-			return;
-		}
-		
 		// decide when to close it
 		if(!options.sticky){
 			window.setTimeout(function(){
@@ -89,6 +83,7 @@ $.extend($.ui.notify.instance.prototype, {
 	},
 	open: function(){
 		this.element.addClass("ui-notify-hidden").appendTo(this.widget.element).fadeIn(this.options.speed);
+		this._trigger("open")
 		return this;
 	},
 	_trigger: function(type){
