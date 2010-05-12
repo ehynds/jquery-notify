@@ -20,17 +20,15 @@ Create Growl/Ubuntu-like notifications.
 Create a container to hold notifications, and a template from which all notifications will be constructed from.  With this,
 you can have multiple containers on a page holding different styles of notifications.
 
-<pre>
-<div id="container">
+	<div id="container">
 
-	<div>
-		<a class="ui-notify-close" href="#">x</a>
-		<h1>#{title}</h1>
-		<p>#{text}</p>
-	</div>
+		<div>
+			<a class="ui-notify-close" href="#">x</a>
+			<h1>#{title}</h1>
+			<p>#{text}</p>
+		</div>
 	
-</div>
-</pre>
+	</div>
 
 Once the widget is initated on the container, the template is saved and removed from the DOM.  If you'd like a close link in your template,
 simply assign the anchor the "ui-notify-close" class.
