@@ -33,6 +33,8 @@ you can have multiple containers on a page holding different styles of notificat
 Once the widget is initated on the container, the template is saved and removed from the DOM.  If you'd like a close link in your template,
 simply assign the anchor the "ui-notify-close" class.
 
+Define any variables you want to include in this template using `#{varname}` syntax.  You can call these anything you'd like.
+
 ### Step 2
 
 Initiate the widget on the container, optionally passing in a hash of default options:
