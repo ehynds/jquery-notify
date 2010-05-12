@@ -73,9 +73,9 @@ $.extend($.ui.notify.instance.prototype, {
 		return this;
 	},
 	close: function(){
-		var self = this;
+		var self = this, speed = this.options.speed;
 		
-		this.element.fadeTo(this.options.speed, 0).slideUp(this.options.speed, function(){
+		this.element.fadeTo(speed, 0).slideUp(speed, function(){
 			self._trigger("close");
 		});
 		
