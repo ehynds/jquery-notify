@@ -13,10 +13,16 @@
 <script type="text/javascript">
 $(function(){
 
-	// create instance
-	var n = $("#container").notify({
+	// initialize widget on a container, passing in all the defaults.
+	// the defaults will apply to any notification created within this
+	// container, but can be overwritten on notification-by-notification
+	// basis.
+	$container = $("#container").notify({
 		beforeopen: function(){
 			console.log("default beforeopen event fired");
+		},
+		open: function(){
+			console.log("default open event fired");
 		},
 		close: function(){
 			console.log("default close event");
@@ -24,37 +30,48 @@ $(function(){
 	});
 	
 	// create a test notification
-	n.notify("create", {
+	$container.notify("create", {
 		title: 'Test Notification',
-		text: 'The quick brown fox jumped over the lazy dog.  The quick brown fox jumped over the lazy dog.'
+		text: 'This is an example of the default config, and will fade out after five seconds.'
 	});
-	
+
 	// create another, and save the obj into the var instance.
-	var instance = n.notify("create", {
-		title: 'Second Test Notification',
-		text: 'Another quick brown fox jumped over the old and busted lazy dog.'
+	var instance = $container.notify("create", {
+		title: 'Sticky Notification',
+		text: 'This is an example of a "sticky" notification.  The only way to close me is to click on the X above.'
 	},{ 
 		sticky: true,
+		closelink: true,
 		close: function(){
 			console.log("custom close fired");
 		}
 	});
 	
-	// since the above instance is "sticky", it can be manually closed by calling n.close();
+	// since the above instance is "sticky", it can be manually closed by calling instance.close();
 });
 </script>
 
 </head>
 <body>
 
-<!--- create template --->
-<div id="container">
-	<div class="ui-notify-message">
-		<h1>#{title}</h1>
-		<p>#{text}</p>
-	</div>
+<div id="bar">
+	<h1><a href="http://www.erichynds.com">eric<span>hynds</span></a></h1>
 </div>
 
+<div id="content">
+
+	<!--- container to hold notifications --->
+	<div id="container">
+		<div class="ui-notify-message">
+			<div class="ui-notify-padding">
+				<a class="ui-notify-close" href="#">x</a>
+				<h1>#{title}</h1>
+				<p>#{text}</p>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 </body>
 </html>
