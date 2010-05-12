@@ -15,7 +15,7 @@ Create Growl/Ubuntu-like notifications.
 
 ## Usage
 
-Create a container to hold notifications, and a template from which all notifications will be constructed from.  With this,
+First, create a container to hold notifications, and a template from which all notifications will be constructed from.  With this,
 you can have multiple containers on a page holding different styles of notifications.
 
 	<div id="container">
@@ -30,7 +30,7 @@ you can have multiple containers on a page holding different styles of notificat
 		
 	</div>
 
-Initiate the widget on the container, optionally passing in a hash of default options:
+Second, initiate the widget on the container, optionally passing in a hash of default options:
 
 <pre>
 	// basic
@@ -44,7 +44,7 @@ Initiate the widget on the container, optionally passing in a hash of default op
 	});
 </pre>
 
-Create notifications by calling the `create` method.  Pass in an hash of variables as the second argument to transpose into the template:
+Third, create notifications by calling the `create` method.  Pass in an hash of variables as the second argument to transpose into the template:
 
 <pre>
 	$("#container").notify("create", {
