@@ -15,27 +15,34 @@ Create Growl/Ubuntu-like notifications.
 
 ## Usage
 
-1. Create a container and a notification template.  In this example, #container will hold all the notifications and
-each will be built from the template contained within the .ui-notify-message div:
+1. Create a container to hold notifications, and a template from which all notifications will be constructed from.  With this,
+you can have multiple containers on a page holding different styles of notifications.
 
-	<!--- container to hold notifications --->
 	<div id="container">
+	
 		<div class="ui-notify-message">
 			<div class="ui-notify-padding">
-			
 				<a class="ui-notify-close" href="#">x</a>
 				<h1>#{title}</h1>
 				<p>#{text}</p>
-				
 			</div>
 		</div>
+		
 	</div>
 	
-2. Initiate a widget on the container, optionally passing in a hash of defaults:
+2. Initiate the widget on the container, optionally passing in a hash of default options:
 
+	// basic
 	$("#container").notify();
 
-3. Create notifications by calling the "create" method. Pass in an hash of variabkes as the second argument to transpose into the template:
+	// or with options (there are only 3)
+	$("#container").notify({
+		speed: 500,
+		lifespan: 4000,
+		sticky: true
+	});
+
+3. Create notifications by calling the "create" method.  Pass in an hash of variables as the second argument to transpose into the template:
 
 	$("#container").notify("create", {
 		title: 'Test Notification',
