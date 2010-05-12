@@ -3,8 +3,7 @@
 $.widget("ui.notify", {
 	options: {
 		speed: 500,
-		lifespan: 5000,
-		sticky: false
+		expires: 5000
 	},
 	_create: function(){
 		this.template = this.element.children().addClass("ui-notify-padding").wrap('<div class="ui-notify-message"></div>').end().html();
@@ -22,6 +21,7 @@ $.widget("ui.notify", {
 $.extend($.ui.notify, {
 	instance: function(widget){
 		this.widget = widget;
+		this.isOpen = false;
 	}
 });
 
@@ -49,31 +49,30 @@ $.extend($.ui.notify.instance.prototype, {
 		}
 		
 		// show close link?
-		if(closelink.length){
-			if(!options.sticky){
-				closelink.remove();
-			} else {
-				closelink.bind("click", function(){
-					self.close();
-					return false;
-				});
-			}
+		if(closelink.length && !!options.expires){
+			closelink.remove();
+		} else if(closelink.length){
+			closelink.bind("click", function(){
+				self.close();
+				return false;
+			});
 		}
 		
 		// open plz
 		this.open();
 		
-		// decide when to close it
-		if(!options.sticky){
+		// auto expire?
+		if(typeof this.options.expires === "number"){
 			window.setTimeout(function(){
 				self.close();
-			}, options.lifespan);
+			}, options.expires);
 		}
 		
 		return this;
 	},
 	close: function(){
 		var self = this, speed = this.options.speed;
+		this.isOpen = false;
 		
 		this.element.fadeTo(speed, 0).slideUp(speed, function(){
 			self._trigger("close");
@@ -82,7 +81,12 @@ $.extend($.ui.notify.instance.prototype, {
 		return this;
 	},
 	open: function(){
+		if(this.isOpen){
+			return this;
+		}
+		
 		var self = this;
+		this.isOpen = true;
 		
 		this.element.appendTo(this.widget.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
 			self._trigger("open");
