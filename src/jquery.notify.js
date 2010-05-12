@@ -29,7 +29,6 @@ $.extend($.ui.notify, {
 $.extend($.ui.notify.instance.prototype, {
 	_create: function(params, options){
 		this.options = options;
-		
 		var self = this,
 			
 			// build html template
@@ -38,7 +37,9 @@ $.extend($.ui.notify.instance.prototype, {
 			}),
 			
 			// the actual message
-			m = (this.element = $(html)),
+			m = (this.element = $(html).bind("click", function(e){
+				self._trigger("click", e, self);
+			})),
 			
 			// close link
 			closelink = m.find("a.ui-notify-close");
@@ -58,11 +59,10 @@ $.extend($.ui.notify.instance.prototype, {
 			});
 		}
 		
-		// open plz
 		this.open();
 		
 		// auto expire?
-		if(typeof this.options.expires === "number"){
+		if(typeof options.expires === "number"){
 			window.setTimeout(function(){
 				self.close();
 			}, options.expires);
@@ -94,8 +94,8 @@ $.extend($.ui.notify.instance.prototype, {
 		
 		return this;
 	},
-	_trigger: function(type){
-		return this.widget._trigger.call( this, type );
+	_trigger: function(type, e, instance){
+		return this.widget._trigger.call( this, type, e, instance );
 	}
 });
 

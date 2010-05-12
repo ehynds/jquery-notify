@@ -1,14 +1,16 @@
 # jQuery UI Notify Widget
 
-Create Growl/Ubuntu-like notifications.  Uses RGBA, border-radius, and box-shadow, so they're not as pretty in IE as they could be right now.
+Create Growl/Ubuntu-like notifications.
+
+Uses RGBA, border-radius, and box-shadow, so they're not as pretty as they could be in IE at the moment.
 
 ## Features
 
 - No images, all CSS
-- Less than 100 lines of code
-- Built on jQuery UI widget factory
+- Roughly 100 lines of code
+- Built on top of the jQuery UI widget factory
 - Templating system: include whatever you want inside notifications (images, links, etc.)
-- beforeopen, open, and close callbacks
+- beforeopen, open, close, and click events
 - Show completely different notifications in different containers
 - Ability to customize options on a notification-by-notification basis
 - Ability to programatically call `open` and `close` methods
@@ -85,4 +87,45 @@ instance.close();
 // re-open it
 instance.open();
 </pre>
+
+## Options
+
+Two options are available:
+
+### speed
+The amount of time in MS to fade in/out notifications.
+
+### expires
+The notification will automatically close after this amount of time, in MS.  Set to `0` or `false` to create "sticky" notifications.
+
+## Events
+
+Four events are available to you:
+
+### beforeopen
+Fires before the notification opens.  If `false` is returned inside this callback, the notification will not open.
+
+### open
+Fires after the notifcation opens.
+
+### close 
+Fires after the notification closes.
+
+### click
+Fires if the user clicks anywhere in the notification itself (not on the close link(s), if present).  Useful
+if you want to close the notification or perform some other action once the user has acknowledged the notice.
+
+An example here:
+
+	$("#container").notify("create", {
+		title: 'Clickable Notification',
+		text: 'Click on me to fire a callback'
+	},{
+		click: function(e,instance){
+			// close the notice if the user clicks anywhere inside it
+			instance.close();
+		}
+	});
+
+
 

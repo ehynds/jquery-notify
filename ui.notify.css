@@ -2,10 +2,12 @@
 .ui-notify-padding { padding:10px }
 .ui-notify-message:last-child { margin-bottom:0 }
 .ui-notify-message h1 { color:#fff; font-size:14px; font-weight:bold; margin:0; padding:0 }
-.ui-notify-message p { color:#fff; margin:5px 0; padding:0; line-height:18px }
-.ui-notify-close { margin-top:-4px; float:right; color:#fff; cursor:pointer; font-size:12px; font-weight:bold; text-shadow:0 1px 1px #fff; padding:2px }
-.ui-notify-close:hover { text-decoration:none; color:#ffffab }
-.ui-notify-close:active { position:relative; top:1px }
+.ui-notify-message p { color:#fff; margin:3px 0; padding:0; line-height:18px }
+.ui-notify-close { color:#fff; text-decoration:underline }
+.ui-notify-cross { margin-top:-4px; float:right; cursor:pointer; text-decoration:none; font-size:12px; font-weight:bold; text-shadow:0 1px 1px #fff; padding:2px }
+.ui-notify-cross:hover { color:#ffffab }
+.ui-notify-cross:active { position:relative; top:1px }
+
 
 .ui-notify-message {
 	margin-bottom:15px;
