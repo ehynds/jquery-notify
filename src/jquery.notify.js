@@ -7,7 +7,7 @@ $.widget("ui.notify", {
 		sticky: false
 	},
 	_create: function(){
-		this.template = this.element.html();
+		this.template = this.element.children().addClass("ui-notify-padding").wrap('<div class="ui-notify-message"></div>').end().html();
 		this.element.empty().addClass("ui-notify");
 	},
 	create: function(msg, opts){
