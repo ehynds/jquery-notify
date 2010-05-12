@@ -32,23 +32,27 @@ you can have multiple containers on a page holding different styles of notificat
 
 2. Initiate the widget on the container, optionally passing in a hash of default options:
 
+<pre>
 	// basic
 	$("#container").notify();
-
+	
 	// or with options (there are only 3)
 	$("#container").notify({
 		speed: 500,
 		lifespan: 4000,
 		sticky: true
 	});
+</pre>
 
 3. Create notifications by calling the `create` method.  Pass in an hash of variables as the second argument to transpose into the template:
-	
+
+<pre>
 	$("#container").notify("create", {
 		title: 'Test Notification',
 		text: 'This is an example of the default config, and will fade out after five seconds.'
 	});
-	
+</pre>
+
 If you'd like, set specific options for each notification by passing in a second hash:
 	
 	$("#container").notify("create", {
