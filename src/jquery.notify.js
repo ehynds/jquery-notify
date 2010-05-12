@@ -75,15 +75,19 @@ $.extend($.ui.notify.instance.prototype, {
 	close: function(){
 		var self = this;
 		
-		this.element.slideUp(this.options.speed, function(){
+		this.element.fadeTo(this.options.speed, 0).slideUp(this.options.speed, function(){
 			self._trigger("close");
 		});
 		
 		return this;
 	},
 	open: function(){
-		this.element.addClass("ui-notify-hidden").appendTo(this.widget.element).fadeIn(this.options.speed);
-		this._trigger("open")
+		var self = this;
+		
+		this.element.appendTo(this.widget.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
+			self._trigger("open");
+		});
+		
 		return this;
 	},
 	_trigger: function(type){
