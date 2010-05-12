@@ -6,8 +6,7 @@ $.widget("ui.notify", {
 	options: {
 		speed: 500,
 		lifespan: 5000,
-		sticky: false,
-		closelink: false
+		sticky: false
 	},
 	_create: function(){
 		this.template = this.element.html();
@@ -53,16 +52,18 @@ $.extend($.ui.notify.instance.prototype, {
 		}
 		
 		// show close link?
-		if(!opts.closelink){
-			closelink.remove();
-		} else {
-			closelink.bind("click", function(){
-				self.close();
-			});
+		if(closelink.length){
+			if(!opts.sticky){
+				closelink.remove();
+			} else {
+				closelink.bind("click", function(){
+					self.close();
+				});
+			}
 		}
 		
 		// open plz
-		m.addClass("ui-notify-hidden").appendTo(this.widget.element).fadeIn(this.options.speed);
+		this.open();
 		
 		// fire open callback
 		if(this._trigger("open") === false){
@@ -72,7 +73,7 @@ $.extend($.ui.notify.instance.prototype, {
 		// decide when to close it
 		if(!opts.sticky){
 			window.setTimeout(function(){
-				self.close(m);
+				self.close();
 			}, opts.lifespan);
 		}
 		
@@ -80,11 +81,15 @@ $.extend($.ui.notify.instance.prototype, {
 	},
 	close: function(){
 		var self = this;
-		this.element.animate({ opacity:0, margin:0, height:0 }, { duration:this.options.speed, complete:function(){
-			$(this).remove();
-			self._trigger("close");
-		}});
 		
+		this.element.slideUp(this.options.speed, function(){
+			self._trigger("close");
+		});
+		
+		return this;
+	},
+	open: function(){
+		this.element.addClass("ui-notify-hidden").appendTo(this.widget.element).fadeIn(this.options.speed);
 		return this;
 	},
 	_trigger: function(type){
