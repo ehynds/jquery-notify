@@ -1,6 +1,6 @@
 # jQuery UI Notify Widget
 
-Create Growl/Ubuntu-like notifications.
+Create Growl/Ubuntu-like notifications.  Uses RGBA, border-radius, and box-shadow, so they're not as pretty in IE as they could be right now.
 
 ## Features
 
