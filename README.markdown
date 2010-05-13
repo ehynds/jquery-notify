@@ -45,11 +45,10 @@ Initiate the widget on the container, optionally passing in a hash of default op
 // basic
 $("#container").notify();
 
-// or with options (there are only 3)
+// or with options (there are only 2)
 $("#container").notify({
 	speed: 500,
-	lifespan: 4000,
-	sticky: true
+	expires: true
 });
 </pre>
 
@@ -70,7 +69,7 @@ $("#container").notify("create", {
 	title: 'Test Notification',
 	text: 'This is an example of the default config, and will fade out after five seconds.'
 },{
-	sticky: true,
+	expires: false,
 	speed: 1000
 });
 </pre>
