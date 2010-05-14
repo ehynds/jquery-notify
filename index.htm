@@ -27,8 +27,6 @@ $(function(){
 	create(undefined, { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds'});
 	create(undefined, { title:'Sticky Notification', text:'Example of a "sticky" notification.  Click on the X above to close me.'},{ expires:false });
 	
-	
-	
 	// bindings for the examples
 	$("#default").click(function(){
 		create(undefined, { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds'});
@@ -84,7 +82,7 @@ $(function(){
 	
 	<!--- container to hold notifications, and default templates --->
 	<div id="container">
-	
+		
 		<div id="default">
 			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
 			<h1>#{title}</h1>

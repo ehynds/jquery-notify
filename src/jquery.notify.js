@@ -26,7 +26,7 @@ $.widget("ui.notify", {
 		this.keys = [];
 		
 		// build and save templates
-		this.element.addClass("ui-notify").children().addClass('ui-notify-message').each(function(i){
+		this.element.addClass("ui-notify").children().addClass("ui-notify-message").each(function(i){
 			var key = this.id || i;
 			self.keys.push(key);
 			self.templates[key] = $(this).removeAttr("id").wrap("<div></div>").parent().html(); // because $(this).andSelf().html() no workie
@@ -69,9 +69,7 @@ $.extend($.ui.notify.instance.prototype, {
 			}),
 			
 			// the actual message
-			m = (this.element = $(html).bind("click", function(e){
-				self._trigger("click", e, self);
-			})),
+			m = (this.element = $(html)),
 			
 			// close link
 			closelink = m.find("a.ui-notify-close");
@@ -79,6 +77,13 @@ $.extend($.ui.notify.instance.prototype, {
 		// fire beforeopen event
 		if(this._trigger("beforeopen") === false){
 			return;
+		}
+
+		// clickable?
+		if(typeof this.options.click === "function"){
+			m.addClass("ui-notify-click").bind("click", function(e){
+				self._trigger("click", e, self);
+			});
 		}
 		
 		// show close link?
