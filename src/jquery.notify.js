@@ -1,3 +1,18 @@
+/*
+ * jQuery Notify UI Widget 1.0
+ * Copyright (c) 2010 Eric Hynds
+ *
+ * http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/
+ *
+ * Depends:
+ *   - jQuery 1.4
+ *   - jQuery UI 1.8 (core, widget factory)
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ *
+*/
 (function($){
 
 $.widget("ui.notify", {
@@ -6,11 +21,27 @@ $.widget("ui.notify", {
 		expires: 5000
 	},
 	_create: function(){
-		this.template = this.element.children().addClass("ui-notify-padding").wrap('<div class="ui-notify-message"></div>').end().html();
-		this.element.empty().addClass("ui-notify");
+		var self = this;
+		this.templates = {};
+		this.keys = [];
+		
+		// build and save templates
+		this.element.addClass("ui-notify").children().addClass('ui-notify-message').each(function(i){
+			var key = this.id || i;
+			self.keys.push(key);
+			self.templates[key] = $(this).removeAttr("id").wrap("<div></div>").parent().html(); // because $(this).andSelf().html() no workie
+		}).end().empty();
+		
 	},
-	create: function(msg, opts){
-		return new $.ui.notify.instance(this)._create(msg, $.extend({}, this.options, opts));
+	create: function(template, msg, opts){
+		if(typeof template === "object"){
+			opts = msg;
+			msg = template;
+			template = null;
+		}
+		
+		// return a new notification instance
+		return new $.ui.notify.instance(this)._create(msg, $.extend({}, this.options, opts), this.templates[ template || this.keys[0]]);
 	},
 	_setOption: function(key, value){
 		this.options[key] = value;
@@ -20,19 +51,20 @@ $.widget("ui.notify", {
 // instance constructor
 $.extend($.ui.notify, {
 	instance: function(widget){
-		this.widget = widget;
+		this.parent = widget;
 		this.isOpen = false;
 	}
 });
 
 // instance methods
 $.extend($.ui.notify.instance.prototype, {
-	_create: function(params, options){
+	_create: function(params, options, template){
 		this.options = options;
+		
 		var self = this,
 			
 			// build html template
-			html = this.widget.template.replace(/#\{(.*?)\}/g, function($1, $2){
+			html = template.replace(/#\{(.*?)\}/g, function($1, $2){
 				return ($2 in params) ? params[$2] : '';
 			}),
 			
@@ -88,14 +120,17 @@ $.extend($.ui.notify.instance.prototype, {
 		var self = this;
 		this.isOpen = true;
 		
-		this.element.appendTo(this.widget.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
+		this.element.appendTo(this.parent.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
 			self._trigger("open");
 		});
 		
 		return this;
 	},
+	widget: function(){
+		return this.element;
+	},
 	_trigger: function(type, e, instance){
-		return this.widget._trigger.call( this, type, e, instance );
+		return this.parent._trigger.call( this, type, e, instance );
 	}
 });
 

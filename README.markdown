@@ -7,7 +7,7 @@ Uses RGBA, border-radius, and box-shadow, so they're not as pretty as they could
 ## Features
 
 - No images, all CSS
-- Roughly 100 lines of code
+- Lightweight.  Barely 2.5kb in size
 - Built on top of the jQuery UI widget factory
 - Templating system: include whatever you want inside notifications (images, links, etc.)
 - beforeopen, open, close, and click events
