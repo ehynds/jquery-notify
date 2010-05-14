@@ -1,5 +1,5 @@
 /*
- * jQuery Notify UI Widget 1.0
+ * jQuery Notify UI Widget 1.1
  * Copyright (c) 2010 Eric Hynds
  *
  * http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/
