@@ -1,5 +1,5 @@
 /*
- * jQuery Notify UI Widget 1.2
+ * jQuery Notify UI Widget 1.2.1
  * Copyright (c) 2010 Eric Hynds
  *
  * http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/
@@ -19,7 +19,7 @@ $.widget("ui.notify", {
 	options: {
 		speed: 500,
 		expires: 5000,
-		position: 'below'
+		stack: 'below'
 	},
 	_create: function(){
 		var self = this;
@@ -126,7 +126,7 @@ $.extend($.ui.notify.instance.prototype, {
 		var self = this;
 		this.isOpen = true;
 		
-		this.element[this.options.position === 'above' ? 'prependTo' : 'appendTo'](this.parent.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
+		this.element[this.options.stack === 'above' ? 'prependTo' : 'appendTo'](this.parent.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
 			self._trigger("open");
 		});
 		
