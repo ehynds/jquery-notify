@@ -59,6 +59,17 @@ $(function(){
 			n.close();
 		});
 	});
+	
+	// second
+	var container = $("#container-bottom").notify({ position:'above' });
+	container.notify("create", { 
+		title:'Look ma, two containers!', 
+		text:'This container is positioned on the bottom of the screen.  Notifications will stack on top of each other with the <code>position</code> attribute set to <code>above</code>.' 
+	},{ expires:false });
+	
+	container.notify("widget").find("input").bind("click", function(){
+		container.notify("create", 1, { title:'Another Notification!', text:'The quick brown fox jumped over the lazy dog.' });
+	});
 });
 </script>
 
@@ -104,7 +115,23 @@ $(function(){
 			</p>
 		</div>
 	</div>
-
+	
+	<!--- second container -  bottom notifications --->
+	<div id="container-bottom" style="top:auto; left:0; bottom:0; margin:0 0 10px 10px">
+		<div>
+			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
+			<h1>#{title}</h1>
+			<p>#{text}</p>
+			<p style="margin-top:10px;text-align:center">
+				<input type="button" class="confirm" value="Create Another Notification!" />
+			</p>
+		</div>
+		
+		<div>
+			<h1>#{title}</h1>
+			<p>#{text}</p>
+		</div>
+	</div>
 </div>
 
 </body>
