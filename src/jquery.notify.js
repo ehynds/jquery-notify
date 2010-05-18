@@ -43,9 +43,6 @@ $.widget("ui.notify", {
 		
 		// return a new notification instance
 		return new $.ui.notify.instance(this)._create(msg, $.extend({}, this.options, opts), this.templates[ template || this.keys[0]]);
-	},
-	_setOption: function(key, value){
-		this.options[key] = value;
 	}
 });
 
