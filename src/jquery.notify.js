@@ -62,7 +62,7 @@ $.extend($.ui.notify.instance.prototype, {
 		var self = this,
 			
 			// build html template
-			html = template.replace(/#\{(.*?)\}/g, function($1, $2){
+			html = template.replace(/#(?:\{|%7B)(.*?)(?:\}|%7D)/g, function($1, $2){
 				return ($2 in params) ? params[$2] : '';
 			}),
 			
