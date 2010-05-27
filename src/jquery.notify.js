@@ -6,7 +6,7 @@
  *
  * Depends:
  *   - jQuery 1.4
- *   - jQuery UI 1.8 (core, widget factory)
+ *   - jQuery UI 1.8 widget factory
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -15,7 +15,7 @@
 */
 (function($){
 
-$.widget("ui.notify", {
+$.widget("ech.notify", {
 	options: {
 		speed: 500,
 		expires: 5000,
@@ -42,12 +42,12 @@ $.widget("ui.notify", {
 		}
 		
 		// return a new notification instance
-		return new $.ui.notify.instance(this)._create(msg, $.extend({}, this.options, opts), this.templates[ template || this.keys[0]]);
+		return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), this.templates[ template || this.keys[0]]);
 	}
 });
 
 // instance constructor
-$.extend($.ui.notify, {
+$.extend($.ech.notify, {
 	instance: function(widget){
 		this.parent = widget;
 		this.isOpen = false;
@@ -55,7 +55,7 @@ $.extend($.ui.notify, {
 });
 
 // instance methods
-$.extend($.ui.notify.instance.prototype, {
+$.extend($.ech.notify.instance.prototype, {
 	_create: function(params, options, template){
 		this.options = options;
 		
