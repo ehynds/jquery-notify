@@ -24,16 +24,16 @@ $(function(){
 	$container = $("#container").notify();
 	
 	// create two when the pg loads
-	create(undefined, { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds'});
-	create(undefined, { title:'Sticky Notification', text:'Example of a "sticky" notification.  Click on the X above to close me.'},{ expires:false });
+	create("default", { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds'});
+	create("sticky", { title:'Sticky Notification', text:'Example of a "sticky" notification.  Click on the X above to close me.'},{ expires:false });
 	
 	// bindings for the examples
 	$("#default").click(function(){
-		create(undefined, { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds'});
+		create("default", { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds'});
 	});
 	
 	$("#sticky").click(function(){
-		create(undefined, { title:'Sticky Notification', text:'Example of a "sticky" notification.  Click on the X above to close me.'},{ expires:false });
+		create("sticky", { title:'Sticky Notification', text:'Example of a "sticky" notification.  Click on the X above to close me.'},{ expires:false });
 	});
 	
 	$("#warning").click(function(){
@@ -43,7 +43,7 @@ $(function(){
 	});
 	
 	$("#clickable").click(function(){
-		create(undefined, { title:'Clickable Notification', text:'Click on me to fire a callback. Do it quick though because I will fade out after 5 seconds.'}, {
+		create("default", { title:'Clickable Notification', text:'Click on me to fire a callback. Do it quick though because I will fade out after 5 seconds.'}, {
 			click: function(e,instance){
 				alert("Click triggered!\n\nTwo options are passed into the click callback: the original event obj and the instance object.");
 			}
@@ -95,11 +95,16 @@ $(function(){
 	<div id="container">
 		
 		<div id="default">
-			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
 			<h1>#{title}</h1>
 			<p>#{text}</p>
 		</div>
-
+		
+		<div id="sticky">
+			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
+			<h1>#{title}</h1
+			><p>#{text}</p>
+		</div>
+		
 		<div id="withIcon">
 			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
 			<div style="float:left;margin:0 10px 0 0"><img src="#{icon}" alt="warning" /></div>
@@ -119,7 +124,6 @@ $(function(){
 	<!--- second container -  bottom notifications --->
 	<div id="container-bottom" style="top:auto; left:0; bottom:0; margin:0 0 10px 10px">
 		<div>
-			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
 			<h1>#{title}</h1>
 			<p>#{text}</p>
 			<p style="margin-top:10px;text-align:center">

@@ -85,9 +85,7 @@ $.extend($.ech.notify.instance.prototype, {
 		}
 		
 		// show close link?
-		if(closelink.length && !!options.expires){
-			closelink.remove();
-		} else if(closelink.length){
+		if(closelink.length){
 			closelink.bind("click", function(){
 				self.close();
 				return false;
