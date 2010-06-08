@@ -72,11 +72,6 @@ $.extend($.ech.notify.instance.prototype, {
 			// close link
 			closelink = m.find("a.ui-notify-close");
 		
-		// fire beforeopen event
-		if(this._trigger("beforeopen") === false){
-			return this;
-		}
-
 		// clickable?
 		if(typeof this.options.click === "function"){
 			m.addClass("ui-notify-click").bind("click", function(e){
@@ -114,10 +109,10 @@ $.extend($.ech.notify.instance.prototype, {
 		return this;
 	},
 	open: function(){
-		if(this.isOpen){
+		if(this.isOpen || this._trigger("beforeopen") === false){
 			return this;
 		}
-		
+
 		var self = this;
 		this.isOpen = true;
 		
