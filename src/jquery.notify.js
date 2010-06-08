@@ -1,5 +1,5 @@
 /*
- * jQuery Notify UI Widget 1.2.2
+ * jQuery Notify UI Widget 1.3
  * Copyright (c) 2010 Eric Hynds
  *
  * http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/
@@ -19,7 +19,8 @@ $.widget("ech.notify", {
 	options: {
 		speed: 500,
 		expires: 5000,
-		stack: 'below'
+		stack: 'below',
+		custom: false
 	},
 	_create: function(){
 		var self = this;
@@ -27,7 +28,7 @@ $.widget("ech.notify", {
 		this.keys = [];
 		
 		// build and save templates
-		this.element.addClass("ui-notify").children().addClass("ui-notify-message").each(function(i){
+		this.element.addClass("ui-notify").children().addClass("ui-notify-message ui-notify-message-style").each(function(i){
 			var key = this.id || i;
 			self.keys.push(key);
 			self.templates[key] = $(this).removeAttr("id").wrap("<div></div>").parent().html(); // because $(this).andSelf().html() no workie
@@ -41,8 +42,15 @@ $.widget("ech.notify", {
 			template = null;
 		}
 		
+		var tpl = this.templates[ template || this.keys[0]];
+		
+		// remove default styling class if rolling w/ custom classes
+		if(opts && opts.custom){
+			tpl = $(tpl).removeClass("ui-notify-message-style").wrap("<div></div>").parent().html();
+		}
+		
 		// return a new notification instance
-		return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), this.templates[ template || this.keys[0]]);
+		return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), tpl);
 	}
 });
 

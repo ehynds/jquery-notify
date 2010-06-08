@@ -38,7 +38,14 @@ $(function(){
 	
 	$("#warning").click(function(){
 		create("withIcon", { title:'Warning!', text:'OMG the quick brown fox jumped over the lazy dog.  You\'ve been warned. <a href="#" class="ui-notify-close">Close me.</a>', icon:'alert.png' },{ 
-			expires:false 
+			expires:false
+		});
+	});
+	
+	$("#themeroller").click(function(){
+		create("themeroller", { title:'Warning!', text:'The <code>custom</code> option is set to false for this notification, which prevents the widget from imposing it\'s own coloring.  With this option off, you\'re free to style however you want without changing the original widget\'s CSS.' },{
+			custom: true,
+			expires: false
 		});
 	});
 	
@@ -89,6 +96,7 @@ $(function(){
 		<input type="button" id="warning" value="Use icons in your templates" />
 		<input type="button" id="buttons" value="Or buttons even" />
 		<input type="button" id="clickable" value="The entire notification can be clicked on" />
+		<input type="button" id="themeroller" value="ThemeRoller Support" />
 	</form>
 	
 	<!--- container to hold notifications, and default templates --->
@@ -103,6 +111,14 @@ $(function(){
 			<a class="ui-notify-close ui-notify-cross" href="#">x</a>
 			<h1>#{title}</h1>
 			<p>#{text}</p>
+		</div>
+		
+		<div id="themeroller" class="ui-state-error" style="padding:10px; -moz-box-shadow:0 0 6px #980000; -webkit-box-shadow:0 0 6px #980000; box-shadow:0 0 6px #980000;">
+			<a class="ui-notify-close" href="#"><span class="ui-icon ui-icon-close" style="float:right"></span></a>
+			<span style="float:left; margin:2px 5px 0 0;" class="ui-icon ui-icon-alert"></span>
+			<h1>#{title}</h1>
+			<p>#{text}</p>
+			<p style="text-align:center"><a class="ui-notify-close" href="#">Close Me</a></p>
 		</div>
 		
 		<div id="withIcon">
