@@ -74,7 +74,7 @@ $.extend($.ech.notify.instance.prototype, {
 		
 		// fire beforeopen event
 		if(this._trigger("beforeopen") === false){
-			return;
+			return this;
 		}
 
 		// clickable?
