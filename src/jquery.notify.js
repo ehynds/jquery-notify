@@ -78,7 +78,7 @@ $.extend($.ech.notify.instance.prototype, {
 			m = (this.element = $(html)),
 			
 			// close link
-			closelink = m.find("a.ui-notify-close");
+			closelink = m.find(".ui-notify-close");
 		
 		// clickable?
 		if(typeof this.options.click === "function"){
