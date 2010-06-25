@@ -1,5 +1,5 @@
 /*
- * jQuery Notify UI Widget 1.3
+ * jQuery Notify UI Widget 1.4
  * Copyright (c) 2010 Eric Hynds
  *
  * http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/
@@ -32,8 +32,7 @@ $.widget("ech.notify", {
 			var key = this.id || i;
 			self.keys.push(key);
 			self.templates[key] = $(this).removeAttr("id").wrap("<div></div>").parent().html(); // because $(this).andSelf().html() no workie
-		}).end().empty();
-		
+		}).end().empty().show();
 	},
 	create: function(template, msg, opts){
 		if(typeof template === "object"){
