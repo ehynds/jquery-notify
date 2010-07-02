@@ -107,10 +107,10 @@ $.extend($.ech.notify.instance.prototype, {
 	},
 	close: function(){
 		var self = this, speed = this.options.speed;
-		this.isOpen = false;
 		
 		this.element.fadeTo(speed, 0).slideUp(speed, function(){
 			self._trigger("close");
+			self.isOpen = false;
 		});
 		
 		return this;
@@ -121,10 +121,10 @@ $.extend($.ech.notify.instance.prototype, {
 		}
 
 		var self = this;
-		this.isOpen = true;
 		
 		this.element[this.options.stack === 'above' ? 'prependTo' : 'appendTo'](this.parent.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
 			self._trigger("open");
+			self.isOpen = true;
 		});
 		
 		return this;
