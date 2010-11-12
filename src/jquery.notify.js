@@ -33,6 +33,22 @@ $.widget("ech.notify", {
 			self.keys.push(key);
 			self.templates[key] = $(this).removeAttr("id").wrap("<div></div>").parent().html(); // because $(this).andSelf().html() no workie
 		}).end().empty().show();
+    // when IE6.
+    if(this.element.css('position') !== 'fixed'){
+      var $window = $(window);
+      var offsetTop = this.element.offset().top;
+      if (this.element.css('top') !== 'auto') {
+        $window.bind('scroll.ech.notify', function() {
+          var scrollTop = $window.scrollTop();
+          self.element.css('top', offsetTop + scrollTop);
+        });
+      } else {
+        $window.bind('scroll.ech.notify', function() {
+          var scrollTop = $window.scrollTop();
+          self.element.css('top', scrollTop + $window.height() - self.element.height());
+        });
+      }
+    }
 	},
 	create: function(template, msg, opts){
 		if(typeof template === "object"){
@@ -107,10 +123,13 @@ $.extend($.ech.notify.instance.prototype, {
 	},
 	close: function(){
 		var self = this, speed = this.options.speed;
-		
 		this.element.fadeTo(speed, 0).slideUp(speed, function(){
 			self._trigger("close");
 			self.isOpen = false;
+      // when IE6.
+      if(self.parent.element.css('position') !== 'fixed'){
+        $(window).triggerHandler('scroll.ech.notify');
+      }
 		});
 		
 		return this;
@@ -125,6 +144,10 @@ $.extend($.ech.notify.instance.prototype, {
 		this.element[this.options.stack === 'above' ? 'prependTo' : 'appendTo'](this.parent.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
 			self._trigger("open");
 			self.isOpen = true;
+      // when IE6.
+      if(self.parent.element.css('position') !== 'fixed'){
+        $(window).triggerHandler('scroll.ech.notify');
+      }
 		});
 		
 		return this;
