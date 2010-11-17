@@ -26,7 +26,7 @@ $.widget("ech.notify", {
 		var self = this;
 		this.templates = {};
 		this.keys = [];
-		
+
 		// build and save templates
 		this.element.addClass("ui-notify").children().addClass("ui-notify-message ui-notify-message-style").each(function(i){
 			var key = this.id || i;
@@ -40,14 +40,14 @@ $.widget("ech.notify", {
 			msg = template;
 			template = null;
 		}
-		
+
 		var tpl = this.templates[ template || this.keys[0]];
-		
+
 		// remove default styling class if rolling w/ custom classes
 		if(opts && opts.custom){
 			tpl = $(tpl).removeClass("ui-notify-message-style").wrap("<div></div>").parent().html();
 		}
-		
+
 		// return a new notification instance
 		return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), tpl);
 	}
@@ -65,27 +65,27 @@ $.extend($.ech.notify, {
 $.extend($.ech.notify.instance.prototype, {
 	_create: function(params, options, template){
 		this.options = options;
-		
+
 		var self = this,
-			
+
 			// build html template
 			html = template.replace(/#(?:\{|%7B)(.*?)(?:\}|%7D)/g, function($1, $2){
 				return ($2 in params) ? params[$2] : '';
 			}),
-			
+
 			// the actual message
 			m = (this.element = $(html)),
-			
+
 			// close link
 			closelink = m.find(".ui-notify-close");
-		
+
 		// clickable?
 		if(typeof this.options.click === "function"){
 			m.addClass("ui-notify-click").bind("click", function(e){
 				self._trigger("click", e, self);
 			});
 		}
-		
+
 		// show close link?
 		if(closelink.length){
 			closelink.bind("click", function(){
@@ -93,26 +93,26 @@ $.extend($.ech.notify.instance.prototype, {
 				return false;
 			});
 		}
-		
+
 		this.open();
-		
+
 		// auto expire?
-		if(typeof options.expires === "number"){
+		if(typeof options.expires === "number" && options.expires > 0){
 			window.setTimeout(function(){
 				self.close();
 			}, options.expires);
 		}
-		
+
 		return this;
 	},
 	close: function(){
 		var self = this, speed = this.options.speed;
-		
+
 		this.element.fadeTo(speed, 0).slideUp(speed, function(){
 			self._trigger("close");
 			self.isOpen = false;
 		});
-		
+
 		return this;
 	},
 	open: function(){
@@ -121,12 +121,12 @@ $.extend($.ech.notify.instance.prototype, {
 		}
 
 		var self = this;
-		
+
 		this.element[this.options.stack === 'above' ? 'prependTo' : 'appendTo'](this.parent.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
 			self._trigger("open");
 			self.isOpen = true;
 		});
-		
+
 		return this;
 	},
 	widget: function(){
