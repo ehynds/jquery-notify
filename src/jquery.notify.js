@@ -36,11 +36,11 @@ $.widget("ech.notify", {
     // when IE6.
     if(this.element.css('position') !== 'fixed'){
       var $window = $(window);
-      var offsetTop = this.element.offset().top;
+      var top = parseFloat(self.element.css('top')) || 0;
       if (this.element.css('top') !== 'auto') {
         $window.bind('scroll.ech.notify', function() {
           var scrollTop = $window.scrollTop();
-          self.element.css('top', offsetTop + scrollTop);
+          self.element.css('top', top + scrollTop);
         });
       } else {
         $window.bind('scroll.ech.notify', function() {
