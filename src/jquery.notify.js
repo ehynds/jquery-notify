@@ -42,14 +42,16 @@ $.widget("ech.notify", {
 		}
 		
 		var tpl = this.templates[ template || this.keys[0]];
+
+		opts = $.extend({}, this.options, opts)
 		
 		// remove default styling class if rolling w/ custom classes
-		if(opts && opts.custom){
+		if(opts.custom){
 			tpl = $(tpl).removeClass("ui-notify-message-style").wrap("<div></div>").parent().html();
 		}
 		
 		// return a new notification instance
-		return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), tpl);
+		return new $.ech.notify.instance(this)._create(msg, opts, tpl);
 	}
 });
 
