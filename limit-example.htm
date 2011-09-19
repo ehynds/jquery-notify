@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery UI Notification Widget by Eric Hynds</title>
+<link type="text/css" rel="stylesheet" href="http://www.erichynds.com/examples/style.css" />
+<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/redmond/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="ui.notify.css" />
+<style type="text/css">form input { display:block; width:250px; margin-bottom:5px }</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js" type="text/javascript"></script>
+<script src="src/jquery.notify.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  $(function(){
+    var containerBottom = $("#container-bottom-right").notify({
+      stack: 'above',
+      queue: 6
+    });
+    
+    $('#stack-bottom').click(function(){
+      containerBottom.notify("create", {
+        title:'Bottom-right Notifications', 
+        text:'New notifications will push this notification up.' 
+      });
+    });
+    
+  });
+</script>
+
+</head>
+<body>
+
+<div id="content">
+
+  <h1>jQuery UI Notify Widget</h1>
+  <p>This is a growl/ubuntu-like notification system built on top of jQuery UI.</p>
+  <p>Download &amp; follow @ <a href="http://github.com/ehynds/jquery-notify">http://github.com/ehynds/jquery-notify</a>.</p>
+  <p>Documentation @ <a href="http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/">http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/</a></p>
+  
+  <form style="margin:20px 0">
+      <input type="button" id="stack-bottom" value="Bottom Alignment, Stack bottom!" />
+  </form>
+
+  <div id="container-bottom-right" style="display:none; top:auto; right:0; bottom:0; margin:0 10px 10px 0">
+    <div>
+      <h1>#{title}</h1>
+      <p>#{text}</p>
+    </div>
+  </div>    
+    
+</div>
+
+</body>
+</html>

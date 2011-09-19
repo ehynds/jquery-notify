@@ -20,7 +20,8 @@ $.widget("ech.notify", {
 		speed: 500,
 		expires: 5000,
 		stack: 'below',
-		custom: false
+		custom: false,
+        queue: false
 	},
 	_create: function(){
 		var self = this;
@@ -48,8 +49,8 @@ $.widget("ech.notify", {
 			tpl = $(tpl).removeClass("ui-notify-message-style").wrap("<div></div>").parent().html();
 		}
 		
-		// return a new notification instance
-		return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), tpl);
+        $.ech.notify.openNotifications = $.ech.notify.openNotifications || 0;
+        return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), tpl);            
 	}
 });
 
@@ -93,24 +94,32 @@ $.extend($.ech.notify.instance.prototype, {
 				return false;
 			});
 		}
+
+        this.parent.element.queue('notify', function(){
+          self.open();
+
+          // auto expire?
+          if(typeof options.expires === "number"){
+              window.setTimeout(function(){
+                  self.close();
+              }, options.expires);
+          }
+          
+        });
 		
-		this.open();
-		
-		// auto expire?
-		if(typeof options.expires === "number"){
-			window.setTimeout(function(){
-				self.close();
-			}, options.expires);
-		}
-		
+        if (!this.options.queue) this.parent.element.dequeue('notify');
+        else if ($.ech.notify.openNotifications <= this.options.queue-1) this.parent.element.dequeue('notify');
+        
 		return this;
 	},
 	close: function(){
 		var self = this, speed = this.options.speed;
-		
+
 		this.element.fadeTo(speed, 0).slideUp(speed, function(){
 			self._trigger("close");
 			self.isOpen = false;
+            $.ech.notify.openNotifications -= 1;
+            self.parent.element.dequeue('notify');
 		});
 		
 		return this;
@@ -121,6 +130,8 @@ $.extend($.ech.notify.instance.prototype, {
 		}
 
 		var self = this;
+
+        $.ech.notify.openNotifications += 1;
 		
 		this.element[this.options.stack === 'above' ? 'prependTo' : 'appendTo'](this.parent.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
 			self._trigger("open");
