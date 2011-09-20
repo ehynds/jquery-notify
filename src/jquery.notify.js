@@ -49,7 +49,9 @@ $.widget("ech.notify", {
 			tpl = $(tpl).removeClass("ui-notify-message-style").wrap("<div></div>").parent().html();
 		}
 		
-        $.ech.notify.openNotifications = $.ech.notify.openNotifications || 0;
+        this.openNotifications = this.openNotifications || 0;
+        
+        // return a new notification instance
         return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), tpl);            
 	}
 });
@@ -106,9 +108,8 @@ $.extend($.ech.notify.instance.prototype, {
           }
           
         });
-		
-        if (!this.options.queue) this.parent.element.dequeue('notify');
-        else if ($.ech.notify.openNotifications <= this.options.queue-1) this.parent.element.dequeue('notify');
+
+        if(!this.options.queue || this.parent.openNotifications <= this.options.queue - 1) this.parent.element.dequeue('notify');
         
 		return this;
 	},
@@ -119,7 +120,7 @@ $.extend($.ech.notify.instance.prototype, {
 			self._trigger("close");
 			self.isOpen = false;
             self.element.remove();
-            $.ech.notify.openNotifications -= 1;
+            self.parent.openNotifications -= 1;
             self.parent.element.dequeue('notify');
 		});
 		
@@ -132,7 +133,7 @@ $.extend($.ech.notify.instance.prototype, {
 
 		var self = this;
 
-        $.ech.notify.openNotifications += 1;
+        this.parent.openNotifications += 1;
 		
 		this.element[this.options.stack === 'above' ? 'prependTo' : 'appendTo'](this.parent.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
 			self._trigger("open");
