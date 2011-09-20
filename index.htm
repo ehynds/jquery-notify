@@ -77,6 +77,14 @@ $(function(){
 	container.notify("widget").find("input").bind("click", function(){
 		container.notify("create", 1, { title:'Another Notification!', text:'The quick brown fox jumped over the lazy dog.' });
 	});
+    
+	// third
+	var container = $("#container-bottom-right").notify();
+	$("#queue").click(function(){
+        container.notify("create", "queueing", {
+            title:'Queueing', text:'Example of a notification with queuing.  For this container, no more than three notifications of this type will be visible at one time.'
+        }, { queue: 3 });
+	});
 });
 </script>
 
@@ -92,6 +100,7 @@ $(function(){
 	
 	<form style="margin:20px 0">
 		<input type="button" id="default" value="Open with default configuration" />
+        <input type="button" id="queue" value="Or with Queueing" />
 		<input type="button" id="sticky" value="Create a &quot;sticky&quot; notification" />
 		<input type="button" id="warning" value="Use icons in your templates" />
 		<input type="button" id="buttons" value="Or buttons even" />
@@ -152,6 +161,14 @@ $(function(){
 			<p>#{text}</p>
 		</div>
 	</div>
+    
+	<!--- third container -  bottom-right notifications --->
+	<div id="container-bottom-right" style="display:none; top:0; right:360px; margin:10px 10px 0 0">
+		<div id="queueing">
+			<h1>#{title}</h1>
+			<p>#{text}</p>
+		</div>   
+	</div>    
 </div>
 
 </body>
