@@ -30,7 +30,7 @@
       this.element.addClass("ui-notify").children().addClass("ui-notify-message ui-notify-message-style").each(function(i){
         var key = this.id || i;
         self.keys.push(key);
-        self.templates[key] = $(this).removeAttr("id").wrap("<div></div>").__super().html(); // because $(this).andSelf().html() no workie
+        self.templates[key] = $(this).removeAttr("id").wrap("<div></div>").parent().html(); // because $(this).andSelf().html() no workie
       }).end().empty().show();
     },
 
@@ -45,7 +45,7 @@
 
       // remove default styling class if rolling w/ custom classes
       if(opts && opts.custom){
-        tpl = $(tpl).removeClass("ui-notify-message-style").wrap("<div></div>").__super().html();
+        tpl = $(tpl).removeClass("ui-notify-message-style").wrap("<div></div>").parent().html();
       }
 
       this.openNotifications = this.openNotifications || 0;
@@ -101,7 +101,7 @@
         self.open();
 
         // auto expire?
-        if(typeof options.expires === "number" && option.expires > 0){
+        if(typeof options.expires === "number" && options.expires > 0){
           setTimeout($.proxy(self.close, self), options.expires);
         }
       });
