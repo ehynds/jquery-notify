@@ -1,17 +1,13 @@
-/*
-* jQuery Notify UI Widget 1.5
-* Copyright (c) 2010 Eric Hynds
-*
-* http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/
-*
-* Depends:
-*   - jQuery 1.4+
-*   - jQuery UI 1.8 widget factory
-*
-* Dual licensed under the MIT and GPL licenses:
-*   http://www.opensource.org/licenses/mit-license.php
-*   http://www.gnu.org/licenses/gpl.html
-*
+/* jQuery Notify UI Widget 1.5 by Eric Hynds
+ * http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/
+ *
+ * Depends:
+ *   - jQuery 1.4+
+ *   - jQuery UI 1.8 widget factory
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
 */
 (function($){
 
