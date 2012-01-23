@@ -31,6 +31,11 @@
         var key = this.id || i;
         self.keys.push(key);
         self.templates[key] = $(this).removeAttr("id").wrap("<div></div>").parent().html(); // because $(this).andSelf().html() no workie
+        
+        // Add templates as public methods to this widget
+        if ( !self[key] ) {
+            self[key] = $.proxy( self.create, self, key );
+        }
       }).end().empty().show();
     },
 
