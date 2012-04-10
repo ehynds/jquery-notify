@@ -41,7 +41,14 @@
         template = null;
       }
 
-      var tpl = this.templates[ template || this.keys[0]];
+      
+      var tpl;
+      if (isNaN(template)){
+        tpl = this.templates[ template || this.keys[0]];
+      }else{
+    	  tpl = this.templates[ this.keys[template]];
+      }
+      
 
       // remove default styling class if rolling w/ custom classes
       if(opts && opts.custom){
