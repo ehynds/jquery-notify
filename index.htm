@@ -9,6 +9,7 @@
 <style type="text/css">form input { display:block; width:250px; margin-bottom:5px }</style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js" type="text/javascript"></script>
+<script src="src/jquery.hoverIntent.js" type="text/javascript"></script>
 <script src="src/jquery.notify.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -31,6 +32,15 @@ $(function(){
 	$("#default").click(function(){
 		create("default", { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds'});
 	});
+	
+	$("#defaultHover").click(function(){
+		create("default", { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds or when mouse hover over it! Uses hoverIntent.js'}, {hover: function(e, instance) {instance.close()}});
+	});
+	
+	$("#defaultHoverjQuery").click(function(){
+		create("default", { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds or when mouse hover over it! Does not uses hoverIntent.js'}, {useHoverIntent: false, hover: function(e, instance) {instance.close()}});
+	});
+		
 	
 	$("#sticky").click(function(){
 		create("sticky", { title:'Sticky Notification', text:'Example of a "sticky" notification.  Click on the X above to close me.'},{ expires:false });
@@ -100,6 +110,8 @@ $(function(){
 	
 	<form style="margin:20px 0">
 		<input type="button" id="default" value="Open with default configuration" />
+		<input type="button" id="defaultHover" value="Open with default configuration. Will close on hover (hoverIntent.js)"/>
+		<input type="button" id="defaultHoverjQuery" value="Open with default configuration. Will close on hover (no hoverIntent.js)"/>
         <input type="button" id="queue" value="Or with Queueing" />
 		<input type="button" id="sticky" value="Create a &quot;sticky&quot; notification" />
 		<input type="button" id="warning" value="Use icons in your templates" />

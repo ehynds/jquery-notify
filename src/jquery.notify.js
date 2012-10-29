@@ -86,7 +86,56 @@
       if(typeof this.options.click === "function"){
         m.addClass("ui-notify-click").bind("click", function(e){
           self._trigger("click", e, self);
-        });
+        });        
+      }
+        
+      if(typeof this.options.hover === "function"){
+    	  // hover intent present
+    	  if(typeof m.hoverIntent === "function") {
+    		if(this.options.useHoverIntent != null &&  this.options.useHoverIntent == false) {
+    			m.hover(
+    	    			function (e) {
+    	    				try {
+    	             			self._trigger("hover", e, self);
+    	             		 } catch (e) {
+    	             		 }
+    	    			}, 
+    	    			function (e) {
+    	    				if(typeof self.options.out === "function") {
+    	             			self._trigger("out", e, self);
+    	             		}
+    	    			}
+    	    		);
+    		} else {
+    			m.hoverIntent({        	            
+                	 over: function(ob,e) {					
+                		 try {
+                			self._trigger("hover", e, self);
+                		 } catch (e) {
+                		 }          		
+                	 },
+                	 out: function(ob,e) {    
+                		if(typeof self.options.out === "function") {
+                			self._trigger("out", e, self);
+                		}
+                	}
+                });
+    		}    		
+    	  } else {
+    		m.hover(
+    			function (e) {
+    				try {
+             			self._trigger("hover", e, self);
+             		 } catch (e) {
+             		 }
+    			}, 
+    			function (e) {
+    				if(typeof self.options.out === "function") {
+             			self._trigger("out", e, self);
+             		}
+    			}
+    		);
+    	  }               
       }
 
       // show close link?
