@@ -189,7 +189,11 @@
         self._trigger("open");
         self.isOpen = true;
       });
-
+      
+      if(this.options.afterOpenEffect != null) {
+    	  $(this.element).effect(this.options.afterOpenEffect, { times: this.options.afterOpenEffectRepeat }, this.options.afterOpenEffectSpeed);
+      }      
+      
       return this;
     },
 
