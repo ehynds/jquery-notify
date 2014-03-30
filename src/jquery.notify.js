@@ -41,7 +41,7 @@
         template = null;
       }
 
-      // accept template parameter pass on create options
+      // accept template parameter pass on create options，if has
       var tpl = opts.template || this.templates[ template || this.keys[0]];
 
       // remove default styling class if rolling w/ custom classes
