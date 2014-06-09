@@ -15,6 +15,9 @@
 
     options: {
       speed: 500,
+      speedIn: 500,
+      speedOut: 500,
+      speedClose: 500,
       expires: 5000,
       stack: "below",
       custom: false,
@@ -51,7 +54,7 @@
       this.openNotifications = this.openNotifications || 0;
 
       // return a new notification instance
-      return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), tpl);            
+      return new $.ech.notify.instance(this)._create(msg, $.extend({}, this.options, opts), tpl);
     }
   });
 
@@ -102,7 +105,7 @@
 
         // auto expire?
         if(typeof options.expires === "number" && options.expires > 0){
-          setTimeout($.proxy(self.close, self), options.expires);
+          setTimeout($.proxy(self.fadeoutClose, self), options.expires);
         }
       });
 
@@ -113,8 +116,8 @@
       return this;
     },
 
-    close: function(){
-      var speed = this.options.speed;
+    fadeoutClose: function (speed) {
+      speed = speed || this.options.speedOut === undefined ? this.options.speed : this.options.speedOut ;
 
       this.element.fadeTo(speed, 0).slideUp(speed, $.proxy(function(){
         this._trigger("close");
@@ -127,16 +130,23 @@
       return this;
     },
 
+    close: function(){
+      var speed = this.options.speedClose === undefined ? this.options.speed : this.options.speedClose;
+
+      return this.fadeoutClose(speed);
+    },
+
     open: function(){
       if(this.isOpen || this._trigger("beforeopen") === false){
         return this;
       }
 
       var self = this;
+      var speed = this.options.speedIn === undefined ? this.options.speed : this.options.speedIn;
 
       this.__super.openNotifications += 1;
 
-      this.element[this.options.stack === "above" ? "prependTo" : "appendTo"](this.__super.element).css({ display:"none", opacity:"" }).fadeIn(this.options.speed, function(){
+      this.element[this.options.stack === "above" ? "prependTo" : "appendTo"](this.__super.element).css({ display:"none", opacity:"" }).fadeIn(speed, function(){
         self._trigger("open");
         self.isOpen = true;
       });
