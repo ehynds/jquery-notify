@@ -2,8 +2,6 @@
 
 Create Growl/Ubuntu-like notifications.  Uses RGBA, border-radius, and box-shadow, so they're not as pretty as they could be in IE at the moment.
 
-See [http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/](http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widget/) for demos & documentation.
-
 ## Features
 
 - No images, all CSS
@@ -17,3 +15,28 @@ See [http://www.erichynds.com/jquery/a-jquery-ui-growl-ubuntu-notification-widge
 - Ability to programatically call `open` and `close` methods
 - Passes JSLint
 - Cross-browser compatible (including IE6)
+
+## Usage
+
+```html
+  <div id="notify" style="display:none; width:400px;">
+		<div id="success-template">
+			<a class="ui-notify-cross ui-notify-close" href="#">x</a>
+			<h1>#{title}</h1>
+			<p>#{text}</p>
+		</div>
+	</div>		
+```
+
+```javascript
+    $("#notify").notify({
+		  speed: 500,
+			expires: 8000 // ms or false
+		});
+    
+    $("#notify").notify("create", {
+      title: 'Cool Notification',
+      text: 'Order confirmed.'
+    });
+```
+
